@@ -1,5 +1,3 @@
-require 'sinatra'
- 
-require_relative './app.rb'
- 
-run Application
+require_relative './config/environment'
+
+run ApplicationController
