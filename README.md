@@ -4,7 +4,7 @@ Revamp is a Ruby and Sinatra recipe database application.
 
 ## Installation / Usage
 
-To use this app, just clone, run rake db:migrate and then run shotgun. Everything should be set up.
+To use this app, just clone, run bundle, rake db:migrate and then shotgun.
 
 ## Contributing
 Since this is a school project, contributions are not allowed at this time.
