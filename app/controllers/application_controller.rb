@@ -37,7 +37,8 @@ class ApplicationController < Sinatra::Base
         end
       # check to see if password is properly formatted using regex
       # check db if email is taken
-      # maybe check to see password is in a certain format
+      # check to see if user_name is taken
+      # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
       # if everything is ok, add this new user to the db
       #     set the session to the users email
       # if not redirect to '/users/new' with an error message
@@ -46,7 +47,7 @@ class ApplicationController < Sinatra::Base
       redirect "/users/new"
 
     else  #@session[:type] == "login"
-      # check if email is in db
+      # check if user_name or email is in db
       # if no, error = "Invalid username or password"
       # if yes, check to make sure password is correct
       # if no, error = "Invalid username or password"
