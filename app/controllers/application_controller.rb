@@ -43,6 +43,7 @@ class ApplicationController < Sinatra::Base
       # using email_address gem
       email = params[:user_email].downcase
       user = params[:user_name].downcase
+      password = params[:user_password]
       if  !EmailAddress.valid?(email)
         @session[:error] = EmailAddress.error(email)
         redirect '/users/new'
@@ -59,7 +60,7 @@ class ApplicationController < Sinatra::Base
       end
       # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
       re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-      if re.match(params[:user_password]) == nil
+      if re.match(password) == nil
         @session[:error] = "Pssword must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters"
         redirect '/users/new'
       end
@@ -67,7 +68,7 @@ class ApplicationController < Sinatra::Base
       #     set the session to the users email
       # if not redirect to '/users/new' with an error message
 
-      User.create(email: email, user_name: user)
+      User.create(email: email, user_name: user, password: password)
       @session[:email] = email
       @session[:user] = user
       redirect "/users/#{@session[:user]}"
