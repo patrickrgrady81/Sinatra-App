@@ -50,12 +50,17 @@ class ApplicationController < Sinatra::Base
       end
       # check db if email is taken
       if @user = User.find_by(email: email)
-        session[:error] = "Sorry, that email already has an account."
+        @session[:error] = "Sorry, that email already has an account."
         redirect '/users/new'
       end
       # check to see if user_name is taken
       if @user = User.find_by(user_name: user)
-        session[:error] = "Sorry, that user name is taken."
+        @session[:error] = "Sorry, that user name is taken."
+        redirect '/users/new'
+      end
+      # user name should be at least 3 characters
+      if !user.length > 3
+        @session[:error] = "User name must be at least 3 characters long."
         redirect '/users/new'
       end
       # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
