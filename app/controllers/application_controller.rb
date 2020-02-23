@@ -71,9 +71,24 @@ class ApplicationController < Sinatra::Base
       User.create(email: email, user_name: user, password: password)
       @session[:email] = email
       @session[:user] = user
+      @session[:error] = ""
       redirect "/users/#{@session[:user]}"
 
     else  #@session[:type] == "login"
+      login = params[:login]
+      password = params[:user_password]
+      user = User.find_by(user_name: login)
+      user ||= User.find_by(email: login)
+
+      if user && user.authenticate(password)
+        @session[:user] = user.user_name
+        @session[:email] = user.email 
+        @session[:error] = ""
+        redirect "/users/#{user.user_name}"
+      else
+        @session[:error] = "Invalid user name or password"
+        redirect "/users/login"
+      end
       # check if user_name or email is in db
       # if no, error = "Invalid username or password"
       # if yes, check to make sure password is correct
