@@ -36,7 +36,7 @@ class ApplicationController < Sinatra::Base
       # @session[:input_email] = params[:user_email]
       # make sure user_password == confirm_password
         if params[:user_password] != params[:confirm_password]
-          @session[:error] = "Your passwords must match"
+          @session[:error] = "Your passwords must match."
           redirect "/users/new"
         end
 
@@ -45,12 +45,16 @@ class ApplicationController < Sinatra::Base
       password = params[:user_password]
       # check if email is valid 
       # using email_address gem
-      #####################################################
-      # if  !EmailAddress.valid?(email)
-      #   @session[:error] = EmailAddress.error(email)
-      #   redirect '/users/new'
-      # end
-      #####################################################
+      # use easy_email = true if you want to create accounts without validating the email
+      # this will make it easier to create accounts by allowing any fake email
+      easy_emails = true 
+      if !easy_emails
+        if !EmailAddress.valid?(email)
+          @session[:error] = EmailAddress.error(email)
+          redirect '/users/new'
+        end
+      end
+
       # check db if email is taken
       if @user = User.find_by(email: email)
         @session[:error] = "Sorry, that email already has an account."
@@ -69,7 +73,7 @@ class ApplicationController < Sinatra::Base
       # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
       re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
       if re.match(password) == nil
-        @session[:error] = "Pssword must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters"
+        @session[:error] = "Password must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters."
         redirect '/users/new'
       end
       # if everything is ok, add this new user to the db
@@ -108,7 +112,7 @@ class ApplicationController < Sinatra::Base
   get '/users/:user_name' do 
     if logged_in?
       @session = session
-      erb :profile
+      erb :user_profile
     else
       redirect "/"
     end
