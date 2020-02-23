@@ -8,7 +8,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    logout
     @session = session
   	erb :index
   end
@@ -17,6 +16,11 @@ class ApplicationController < Sinatra::Base
     @session = session 
     @session[:type] = "login"
     erb :login
+  end
+
+  get "/users/logout" do 
+    logout 
+    redirect "/"
   end
 
   get "/users/new" do 
@@ -29,22 +33,44 @@ class ApplicationController < Sinatra::Base
   post "/users" do 
     @session = session
     if @session[:type] == "signup"
-      @session[:input_email] = params[:user_email]
+      # @session[:input_email] = params[:user_email]
       # make sure user_password == confirm_password
         if params[:user_password] != params[:confirm_password]
           @session[:error] = "Your passwords must match"
           redirect "/users/new"
         end
-      # check to see if password is properly formatted using regex
+      # check if email is valid 
+      # using email_address gem
+      email = params[:user_email].downcase
+      user = params[:user_name].downcase
+      if  !EmailAddress.valid?(email)
+        @session[:error] = EmailAddress.error(email)
+        redirect '/users/new'
+      end
       # check db if email is taken
+      if @user = User.find_by(email: email)
+        session[:error] = "Sorry, that email already has an account."
+        redirect '/users/new'
+      end
       # check to see if user_name is taken
+      if @user = User.find_by(user_name: user)
+        session[:error] = "Sorry, that user name is taken."
+        redirect '/users/new'
+      end
       # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
+      re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+      if re.match(params[:user_password]) == nil
+        @session[:error] = "Pssword must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters"
+        redirect '/users/new'
+      end
       # if everything is ok, add this new user to the db
       #     set the session to the users email
       # if not redirect to '/users/new' with an error message
 
-      @session[:error] = "Sorry can't log in right now"
-      redirect "/users/new"
+      User.create(email: email, user_name: user)
+      @session[:email] = email
+      @session[:user] = user
+      redirect "/users/#{@session[:user]}"
 
     else  #@session[:type] == "login"
       # check if user_name or email is in db
@@ -55,7 +81,21 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/users/:user_name' do 
+    if logged_in?
+      @session = session
+      erb :profile
+    else
+      redirect "/"
+    end
+  end
+
   helpers do 
+    def logged_in?
+      return false if !session[:user]
+      true
+    end
+
     def logout
       session.clear
     end

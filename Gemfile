@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem 'activerecord', '5.2'
+gem 'email_address'
 gem 'rake'
 gem 'require_all'
 gem 'sinatra', '~> 1.4', '>= 1.4.7'
