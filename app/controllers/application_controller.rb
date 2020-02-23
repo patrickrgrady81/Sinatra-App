@@ -39,15 +39,18 @@ class ApplicationController < Sinatra::Base
           @session[:error] = "Your passwords must match"
           redirect "/users/new"
         end
-      # check if email is valid 
-      # using email_address gem
+
       email = params[:user_email].downcase
       user = params[:user_name].downcase
       password = params[:user_password]
-      if  !EmailAddress.valid?(email)
-        @session[:error] = EmailAddress.error(email)
-        redirect '/users/new'
-      end
+      # check if email is valid 
+      # using email_address gem
+      #####################################################
+      # if  !EmailAddress.valid?(email)
+      #   @session[:error] = EmailAddress.error(email)
+      #   redirect '/users/new'
+      # end
+      #####################################################
       # check db if email is taken
       if @user = User.find_by(email: email)
         @session[:error] = "Sorry, that email already has an account."
