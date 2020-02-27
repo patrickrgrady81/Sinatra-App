@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem 'activerecord', '5.2'
 gem 'bcrypt'
 gem 'email_address'
+gem 'nokogiri'
 gem 'rake'
 gem 'require_all'
 gem 'sinatra', '~> 1.4', '>= 1.4.7'
