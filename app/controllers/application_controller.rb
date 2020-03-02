@@ -2,6 +2,7 @@ class ApplicationController < Sinatra::Base
   configure do
   	set :views, "app/views"
     set :public_dir, "public" 
+    set :views, Proc.new { File.join(root, "../views/") }
 
     enable :sessions
     set :session_secret, "reverb_secret"
@@ -9,13 +10,13 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     @session = session
-  	erb :index
+  	erb :'/user/index'
   end
 
   get "/users/login" do 
     @session = session 
     @session[:type] = "login"
-    erb :login
+    erb :'/user/login'
   end
 
   get "/users/logout" do 
@@ -27,7 +28,7 @@ class ApplicationController < Sinatra::Base
     @session = session
     @session[:type] = "signup"
     @session[:error] ||= ""
-    erb :new_user
+    erb :'/user/new_user'
   end
 
   post "/users" do 
@@ -112,7 +113,7 @@ class ApplicationController < Sinatra::Base
   get '/users/:user_name' do 
     if logged_in?
       @session = session
-      erb :user_profile
+      erb :"/user/user_profile"
     else
       redirect "/"
     end
