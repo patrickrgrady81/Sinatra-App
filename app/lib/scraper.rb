@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 
 class Scraper
-    attr_accessor :food, :page, :user
+    attr_accessor :food, :page, :user, :debug
 
     def initialize(food, user_id)
         @food = food
@@ -23,8 +23,8 @@ class Scraper
             href = recipe.css("h3.fixed-recipe-card__h3 a").attribute("href").value
             rating = recipe.css("div.fixed-recipe-card__ratings span.stars").attribute("aria-label").text
             description = recipe.css("div.fixed-recipe-card__description").text
-            r = LocalRecipe.new({name: name, href: href, description: description})
-            r.rating = rating if rating
+            r = TempRecipe.create({name: name, href: href, rating: rating, description: description})
+            puts r.name
         }
     end
 

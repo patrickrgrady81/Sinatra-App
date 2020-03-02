@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_193422) do
     t.integer "user"
   end
 
-  create_table "tem_recipes", force: :cascade do |t|
+  create_table "temp_recipes", force: :cascade do |t|
     t.string "name"
     t.string "href"
     t.decimal "rating"
