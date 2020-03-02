@@ -82,9 +82,9 @@ class ApplicationController < Sinatra::Base
       # if not redirect to '/users/new' with an error message
 
       User.create(email: email, user_name: user, password: password)
-      @session[:email] = email
       @session[:user] = user
-      @session[:error] = ""
+      @session[:error] = nil
+      @session[:type] = nil
       redirect "/users/#{@session[:user]}"
 
     else  #@session[:type] == "login"
@@ -95,8 +95,8 @@ class ApplicationController < Sinatra::Base
 
       if user && user.authenticate(password)
         @session[:user] = user.user_name
-        @session[:email] = user.email 
-        @session[:error] = ""
+        @session[:error] = nil
+        @session[:type] = nil
         redirect "/users/#{user.user_name}"
       else
         @session[:error] = "Invalid user name or password"
@@ -113,6 +113,9 @@ class ApplicationController < Sinatra::Base
   get '/users/:user_name' do 
     if logged_in?
       @session = session
+      # get a list of all the user's recipes
+      @recipes = Recipe.where("user = #{get_user_id}")
+      # raise @recipes.inspect
       erb :"/user/user_profile"
     else
       redirect "/"
@@ -127,6 +130,11 @@ class ApplicationController < Sinatra::Base
 
     def logout
       session.clear
+    end
+
+    def get_user_id
+      user = User.find_by(user_name: session[:user])
+      user.id
     end
   end
 end
