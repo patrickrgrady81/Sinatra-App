@@ -7,6 +7,7 @@ class CreateTempRecipes < ActiveRecord::Migration[5.2]
       t.text :description
       t.text :ingredients
       t.text :directions
+      t.references :user
     end
   end
 end

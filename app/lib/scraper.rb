@@ -2,11 +2,11 @@ require 'open-uri'
 require 'nokogiri'
 
 class Scraper
-    attr_accessor :food, :page, :user, :debug
+    attr_accessor :food, :page, :user_id, :debug
 
-    def initialize(food, user_id)
+    def search(food, user_id, page=1)
         @food = food
-        @page = 1
+        @page = page
         @user_id = user_id
         scrape_for_recipes(get_page)
     end
@@ -18,13 +18,12 @@ class Scraper
 
     def scrape_for_recipes(doc)
         recipes = doc.css("div.fixed-recipe-card__info")
-        recipes.each{|recipe|
+        recipes.collect{|recipe|
             name = recipe.css("span.fixed-recipe-card__title-link").text
             href = recipe.css("h3.fixed-recipe-card__h3 a").attribute("href").value
             rating = recipe.css("div.fixed-recipe-card__ratings span.stars").attribute("aria-label").text
             description = recipe.css("div.fixed-recipe-card__description").text
-            r = TempRecipe.create({name: name, href: href, rating: rating, description: description})
-            puts r.name
+            TempRecipe.create({name: name, href: href, rating: rating, description: description, user_id: user_id})
         }
     end
 

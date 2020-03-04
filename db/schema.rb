@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2020_03_02_193422) do
     t.text "description"
     t.text "ingredients"
     t.text "directions"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_temp_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
