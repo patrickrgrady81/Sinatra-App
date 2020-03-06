@@ -4,14 +4,9 @@ require 'nokogiri'
 class Scraper
     attr_accessor :food, :page, :user_id, :debug
 
-<<<<<<< HEAD
-    def initialize(user_id)
-        @page = 1
-=======
     def search(food, user_id, page=1)
         @food = food
         @page = page
->>>>>>> testing_temp_recipe_db
         @user_id = user_id
     end
 
