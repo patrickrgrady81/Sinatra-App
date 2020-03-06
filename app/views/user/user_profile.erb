@@ -1,12 +1,12 @@
-<h1><%= @session[:user] %></h1>
+<h1><%= current_user.user_name %></h1>
 
 <p>You have <%= @recipes.count %> saved recipe(s)</p>
 <% @recipes.each do |recipe| %>
-  <p><a href="/users/<%= session[:user] %>/recipes/<%= recipe.id %>"><%= recipe.name %></a></p>
+  <p><a href="/users/<%= get_user_name %>/recipes/<%= recipe.id %>"><%= recipe.name %></a></p>
 <% end %>
 
 <br>
-<p><a href="/users/<%= session[:user] %>/recipes/new">Create a new recipe</a></p>
-<p><a href="/users/<%= session[:user] %>/recipes/search">Search for recipes</a></p>
+<p><a href="/users/<%= get_user_name %>/recipes/new">Create a new recipe</a></p>
+<p><a href="/users/<%= get_user_name %>/recipes/search">Search for recipes</a></p>
 
 <a href='/users/logout'>Log out</a>

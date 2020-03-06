@@ -1,8 +1,8 @@
 <h1>Sign In</h1>
-<form method="POST" action="/users">
+<form method="POST" action="/users/login">
   <p>
     <label for="user_email">User Name or Email:</label>
-    <input type="input" name="login" value="<%= @session[:input_email] %>">
+    <input type="input" name="user_input" >
   </p>
   <p>
     <label for="user_password">Password:</label>
@@ -11,4 +11,4 @@
   <input type="submit" value="Submit">
 </form>
 
-<div><%= @session[:error] %></div>
+<div><%= @error %></div>
