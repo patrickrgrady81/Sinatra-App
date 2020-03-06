@@ -115,7 +115,8 @@ class ApplicationController < Sinatra::Base
     if logged_in?
       @session = session
       # get a list of all the user's recipes
-      @recipes = Recipe.where("user = #{get_user_id}")
+      @current_user = current_user
+      @recipes = Recipe.where("user_id = #{@current_user.id}")
       # raise @recipes.inspect
       erb :"/user/user_profile"
     else
@@ -132,6 +133,10 @@ class ApplicationController < Sinatra::Base
     def logout
       current_user.temp_recipes.destroy_all
       session.clear
+    end
+
+    def current_user()
+      User.find_by(user_name: session["user"])
     end
 
     def get_user_id

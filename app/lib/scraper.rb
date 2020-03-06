@@ -2,11 +2,10 @@ require 'open-uri'
 require 'nokogiri'
 
 class Scraper
-    attr_accessor :food, :page, :user_id, :debug
+    attr_accessor :food, :page, :user_id, :debug, :current_recipe
 
-    def search(food, user_id, page=1)
-        @food = food
-        @page = page
+    def initialize(user_id)
+        @page = 1
         @user_id = user_id
     end
 
@@ -34,11 +33,13 @@ class Scraper
 
     def update_recipe(recipe)
         # get which recipe to update from the db
-        binding.pry
-        recipe = LocalRecipe.find_by(id: recipe)
+        @current_recipe = recipe
+        recipe = TempRecipe.find_by(id: recipe)
         doc = Nokogiri::HTML(open(recipe.href).read)
         scrape_for_ingredients(doc, recipe)
         scrape_for_directions(doc, recipe)
+        # binding.pry
+        recipe
     end
 
     def scrape_for_ingredients(doc, recipe)
@@ -51,13 +52,21 @@ class Scraper
             }
             index += 1
         end
+        # Save ingredients to db
+        recipe = TempRecipe.find_by(id: @current_recipe)
         recipe.ingredients = ingredients[0...-1]
+        # binding.pry
+        recipe.save
     end
 
     def scrape_for_directions(doc, recipe)
         directions = doc.css("ol.list-numbers.recipe-directions__list li").map{|direction|
             direction.text.strip
         }
+        
+        # Save directions to db
+        recipe = TempRecipe.find_by(id: @current_recipe)
         recipe.directions = directions
+        recipe.save
     end
 end

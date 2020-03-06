@@ -1,8 +1,19 @@
 
 <h1><%= @recipe.name %></h1>
 <h2><%= @recipe.description %></h2>
+<p><%= @recipe.rating %></p>
+
+<% if @recipe.ingredients != "[]" %>
 <p><%= @recipe.ingredients %></p>
+<% else %>
+<p><%= "Sorry, No Ingredients Found. Please Search Again!" %></p>
+<% end %>
+
+<% if @recipe.directions != "[]" %>
 <p><%= @recipe.directions %></p>
+<% else %>
+<p><%= "Sorry, No Directions Found. Please Search Again!" %></p>
+<% end %>
 
 <form method="post" value="hello">
   <input type="submit" value="Save">
