@@ -1,0 +1,45 @@
+make a readme 
+https://www.makeareadme.com/
+Usage
+To use this app, just clone, run rake db:migrate and then run shotgun. Everything should be set up.
+
+Faker
+https://github.com/faker-ruby/faker
+A library for generating fake data such as names, addresses, and phone numbers.
+
+CRUD
+https://learn.co/tracks/online-software-engineering-structured/sinatra/activerecord/activerecord-in-sinatra
+
+
+video lectures
+https://instruction.learn.co/student/video_lectures#/37
+(alt)https://learn.co/tracks/online-software-engineering-structured/sinatra/activerecord/video-review-authentication
+
+Ally Kadel
+https://www.youtube.com/watch?v=HOITa7OLyeU&list=PLNUiyK37z4zHyIuQjCJt-gPjBzbMb5k1Q
+
+css grid tutorial series
+https://cssgrid.io/
+
+
+corneal
+https://github.com/thebrianemory/corneal
+
+This site shows how to make a star ratings system in css
+http://code.iamkate.com/html-and-css/star-rating-widge/t
+
+Flowchart site
+http://www.draw.io
+
+if port is stuck open because I closed window before stopping the server:
+sudo lsof -i :9393
+look for the PID
+kill -15 <PID> 
+
+coding challenges
+https://leetcode.com/
+https://www.hackerrank.com/
+https://www.codewars.com/dashboard
+
+git Branching and Merging
+https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging

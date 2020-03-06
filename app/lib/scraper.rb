@@ -8,7 +8,7 @@ class Scraper
         @food = food
         @page = 1
         @user_id = user_id
-        scrape_for_recipes(get_page)
+        
     end
 
     def get_page
@@ -17,6 +17,7 @@ class Scraper
     end
 
     def scrape_for_recipes(doc)
+        get_page
         recipes = doc.css("div.fixed-recipe-card__info")
         recipes.each{|recipe|
             name = recipe.css("span.fixed-recipe-card__title-link").text
@@ -29,12 +30,15 @@ class Scraper
     end
 
     def update_recipe(recipe)
+        # get which recipe to update from the db
+        LocalRecipe.find_by(id = recipe)
         doc = Nokogiri::HTML(open(recipe.href).read)
         scrape_for_ingredients(doc, recipe)
         scrape_for_directions(doc, recipe)
     end
 
     def scrape_for_ingredients(doc, recipe)
+        
         ingredients = []
         index = 1
         while doc.css("ul#lst_ingredients_" + index.to_s).count > 0 do
