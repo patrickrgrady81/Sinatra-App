@@ -9,23 +9,20 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    @session = session
   	erb :'/user/index'
   end
 
   get "/users/login" do 
-    @session = session 
-    erb :'/user/login'
+    erb :'/user/login'#, :layout => :layout
   end
 
   post "/users/login" do 
-    login = params[:user_input]
+    user_name = params[:user_name]
     password = params[:user_password]
-    user = User.find_by(user_name: login)
-    user ||= User.find_by(email: login)
+    user = User.find_by(user_name: user_name)
 
     if user && user.authenticate(password)
-      session[:user] = user.user_name
+      session[:user] = user
       redirect "/users/#{user.user_name}"
     else
       @error = "Invalid user name or password"
@@ -88,7 +85,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find_by(user_name: session[:user][:user_name])
+      User.find_by(user_name: get_user_name)
     end
 
     def get_user_id
