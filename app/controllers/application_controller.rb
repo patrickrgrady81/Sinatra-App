@@ -71,6 +71,12 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/users/:user_name/edit/:recipe_name' do 
+    # find the recipe by recipe name in db
+    @recipe = Recipe.find_by(name: params[:recipe_name])
+    erb :'/recipe/edit'
+  end
+
   helpers do 
     def logged_in?
       return false if !session[:user]

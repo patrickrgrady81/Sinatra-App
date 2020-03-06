@@ -9,7 +9,10 @@
 <input type="submit" value="Edit">
 </form>
 
+<a href="/users/<%= get_user_name %>/edit/<%= @recipe[0].name %>">Edit This Recipe</a>
+
 <form method="POST" value="/users/<%= session[:user] %>/recipes">
 <input id="hidden" type="hidden" name="_method" value="DELETE">
 <input type="submit" value="Delete">
 </form>
+
