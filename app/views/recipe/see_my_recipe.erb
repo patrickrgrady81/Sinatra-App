@@ -3,3 +3,13 @@
 <h3><%= @recipe[0].rating %></h3>
 <p><%= @recipe[0].ingredients %></p>
 <p><%= @recipe[0].directions %></p>
+
+<form>
+<input id="hidden" type="hidden" name="_method" value="PATCH">
+<input type="submit" value="Edit">
+</form>
+
+<form method="POST" value="/users/<%= session[:user] %>/recipes">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<input type="submit" value="Delete">
+</form>

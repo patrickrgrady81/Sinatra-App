@@ -39,4 +39,15 @@ class RecipeController < ApplicationController
     redirect :'/users/:user_name'
   end
 
+  delete '/users/:user_name/recipes/:id' do 
+    #delete from db
+    # User.find(15).destroy
+    # User.destroy(15)
+    # User.where(age: 20).destroy_all
+    @current_user = current_user
+    r = Recipe.where(user_id: @current_user).find(params[:id]).destroy
+    
+    redirect to '/users/:user_name'
+  end
+
 end
