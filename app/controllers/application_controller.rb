@@ -36,51 +36,52 @@ class ApplicationController < Sinatra::Base
     if @session[:type] == "signup"
       # @session[:input_email] = params[:user_email]
       # make sure user_password == confirm_password
-        if params[:user_password] != params[:confirm_password]
-          @session[:error] = "Your passwords must match."
-          redirect "/users/new"
-        end
+      # make_it_easy = false
+      # if !make_it_easy
+      #     if params[:user_password] != params[:confirm_password]
+      #       @session[:error] = "Your passwords must match."
+      #       redirect "/users/new"
+      #     end
 
-      email = params[:user_email].downcase
-      user = params[:user_name].downcase
-      password = params[:user_password]
-      # check if email is valid 
-      # using email_address gem
-      # use easy_email = true if you want to create accounts without validating the email
-      # this will make it easier to create accounts by allowing any fake email
-      easy_emails = true 
-      if !easy_emails
-        if !EmailAddress.valid?(email)
-          @session[:error] = EmailAddress.error(email)
-          redirect '/users/new'
-        end
-      end
-
-      # check db if email is taken
-      if @user = User.find_by(email: email)
-        @session[:error] = "Sorry, that email already has an account."
-        redirect '/users/new'
-      end
-      # check to see if user_name is taken
-      if @user = User.find_by(user_name: user)
-        @session[:error] = "Sorry, that user name is taken."
-        redirect '/users/new'
-      end
-      # user name should be at least 3 characters
-      if !user.length > 3
-        @session[:error] = "User name must be at least 3 characters long."
-        redirect '/users/new'
-      end
-      # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
-      re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-      if re.match(password) == nil
-        @session[:error] = "Password must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters."
-        redirect '/users/new'
-      end
-      # if everything is ok, add this new user to the db
-      #     set the session to the users email
-      # if not redirect to '/users/new' with an error message
-
+        email = params[:user_email].downcase
+        user = params[:user_name].downcase
+        password = params[:user_password]
+      #   # check if email is valid 
+      #   # using email_address gem
+      #   # use easy_email = true if you want to create accounts without validating the email
+      #   # this will make it easier to create accounts by allowing any fake email
+      #   easy_emails = true 
+      #   if !easy_emails
+      #     if !EmailAddress.valid?(email)
+      #       @session[:error] = EmailAddress.error(email)
+      #       redirect '/users/new'
+      #     end
+      #   end
+      #   # check db if email is taken
+      #   if new_user = User.find_by(email: email)
+      #     @session[:error] = "Sorry, that email already has an account."
+      #     redirect '/users/new'
+      #   end
+      #   # check to see if user_name is taken
+      #   if new_user = User.find_by(user_name: user)
+      #     @session[:error] = "Sorry, that user name is taken."
+      #     redirect '/users/new'
+      #   end
+      #   # user name should be at least 3 characters
+      #   if !user.length > 3
+      #     @session[:error] = "User name must be at least 3 characters long."
+      #     redirect '/users/new'
+      #   end
+      #   # maybe check to see password is in a certain format (1 upper, 1 lower, 1 number, at least 8 chars long, etc.)
+      #   re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+      #   if re.match(password) == nil
+      #     @session[:error] = "Password must contain 1 upper case, 1 lower case, 1 number, 1 special character (@#$%^&), and must be 8 characters."
+      #     redirect '/users/new'
+      #   end
+      #   # if everything is ok, add this new user to the db
+      #   #     set the session to the users email
+      #   # if not redirect to '/users/new' with an error message
+      # end
       User.create(email: email, user_name: user, password: password)
       @session[:user] = user
       @session[:error] = nil
@@ -129,6 +130,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def logout
+      current_user.temp_recipes.destroy_all
       session.clear
     end
 
