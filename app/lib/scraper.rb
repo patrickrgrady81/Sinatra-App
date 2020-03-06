@@ -4,11 +4,14 @@ require 'nokogiri'
 class Scraper
     attr_accessor :food, :page, :user
 
-    def initialize(food, user_id)
-        @food = food
+    def initialize(user_id)
         @page = 1
         @user_id = user_id
-        
+    end
+
+    def search(food)
+        @food = food
+        scrape_for_recipes
     end
 
     def get_page
@@ -16,8 +19,8 @@ class Scraper
         Nokogiri::HTML(open("https://www.allrecipes.com/search/results/?wt=#{@food}&sort=re&page=#{@page}").read)
     end
 
-    def scrape_for_recipes(doc)
-        get_page
+    def scrape_for_recipes
+        doc = get_page
         recipes = doc.css("div.fixed-recipe-card__info")
         recipes.each{|recipe|
             name = recipe.css("span.fixed-recipe-card__title-link").text
@@ -31,7 +34,8 @@ class Scraper
 
     def update_recipe(recipe)
         # get which recipe to update from the db
-        LocalRecipe.find_by(id = recipe)
+        binding.pry
+        recipe = LocalRecipe.find_by(id: recipe)
         doc = Nokogiri::HTML(open(recipe.href).read)
         scrape_for_ingredients(doc, recipe)
         scrape_for_directions(doc, recipe)

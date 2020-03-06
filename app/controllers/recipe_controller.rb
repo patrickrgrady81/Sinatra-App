@@ -11,7 +11,7 @@ class RecipeController < ApplicationController
 
   post "/users/:user_name/recipes/search" do 
     current_user = User.find_by(user_name: session["user"])
-    Scraper.new(@params["food"], user_id: current_user.id).scrape_for_recipes
+    Scraper.new(user_id: current_user.id).search(food: @params["food"])
     session["recipes"]= LocalRecipe.all
     @session = session 
     erb :'/recipe/search_results'
@@ -19,8 +19,8 @@ class RecipeController < ApplicationController
 
   get '/users/:user_name/recipes/new/:id' do 
     all_recipes = LocalRecipe.all
-    Scraper.new.update_recipe(params[id])
-    raise params.inspect
+    scraper = Scraper.new(user_name: session["user"], food: nil).update_recipe(params[:id])
+    binding.pry
     erb :"recipe/see_recipe"
   end
  
