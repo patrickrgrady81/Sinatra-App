@@ -4,10 +4,10 @@
 <p><%= @recipe[0].ingredients %></p>
 <p><%= @recipe[0].directions %></p>
 
-<form>
+<%# <form>
 <input id="hidden" type="hidden" name="_method" value="PATCH">
 <input type="submit" value="Edit">
-</form>
+</form> %>
 
 <a href="/users/<%= get_user_name %>/edit/<%= @recipe[0].name %>">Edit This Recipe</a>
 

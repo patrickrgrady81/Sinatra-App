@@ -9,8 +9,14 @@
   <h1>Welcome to Recipe Revamp</h1>
   <h2>A Recipe Organizer</h2>
   <div>
-    <p><a href="/users/login">Log In</a></p>
-    <p><a href="/users/new">Sign Up</a></p>
+    <%# <p><a href="/users/login">Log In</a></p>
+    <p><a href="/users/new">Sign Up</a></p> %>
+    <%# if logged in go to profile %>
+    <%# if not logged in say please sign in %>
+    <%# if I get here, I am not logged in! %>
+    <% if !logged_in? %>
+    <h1>Hope you enjoy the app, please login or register<h2>
+    <% end %>
   </div>
 </body>
 </html>

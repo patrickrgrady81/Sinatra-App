@@ -1,5 +1,38 @@
+:root {
+  /*  --bg-color: rgb(162, 197, 232); */
+  --bg-color: white;
+ 
+}
+
 * {
-  background-color: rgb(158, 192, 247);
+  background-color: var(--bg-color);
+}
+
+img {
+  height: 40px;
+}
+
+p {
+  background-color: var(--bg-color);
+  width: 100%;
+}
+
+form {
+  width: 100%;
+}
+
+form p {
+  width: 100%;
+}
+
+input[type=text] {
+  width: 50%;
+  height: 35px;
+}
+
+textarea {
+  width: 50%;
+  height: 100px;
 }
 
 a.visited {

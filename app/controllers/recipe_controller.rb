@@ -1,3 +1,4 @@
+
 class RecipeController < ApplicationController
 
   get '/users/:user_name/recipes/new' do 
@@ -16,10 +17,9 @@ class RecipeController < ApplicationController
   end
 
   get '/users/:user_name/recipes/new/:id' do 
-    recipe = TempRecipe.find_by(id: params[:id])
-    @recipe = Scraper.new(current_user.id).update_recipe(recipe)
+    @recipe = TempRecipe.find_by(id: params[:id])
+    Scraper.new(current_user.id).update_recipe(@recipe)
     # raise @recipe.ingredients.inspect
-    # binding.pry
     erb :"recipe/see_recipe"
   end
  
@@ -44,8 +44,8 @@ class RecipeController < ApplicationController
     # User.find(15).destroy
     # User.destroy(15)
     # User.where(age: 20).destroy_all
-    @current_user = current_user
-    r = Recipe.where(user_id: @current_user).find(params[:id]).destroy
+    r  = Recipe.find(params[:id])
+    r.destroy if r.user == current_user
     
     redirect to '/users/:user_name'
   end

@@ -5,10 +5,13 @@ class ApplicationController < Sinatra::Base
     set :views, Proc.new { File.join(root, "../views/") }
 
     enable :sessions
-    set :session_secret, "reverb_secret"
+    set :session_secret, "pats_secret"
   end
 
   get "/" do
+    if logged_in?
+      redirect "/users/#{get_user_name}"
+    end
   	erb :'/user/index'
   end
 
@@ -74,7 +77,7 @@ class ApplicationController < Sinatra::Base
     erb :'/recipe/edit'
   end
 
-  helpers do 
+  helpers do
     def logged_in?
       return false if !session[:user]
       true
@@ -92,9 +95,12 @@ class ApplicationController < Sinatra::Base
       current_user.id
     end
 
+    def get_user_email
+      current_user.email
+    end
+
     def get_user_name 
       session[:user][:user_name]
     end
-
   end
 end

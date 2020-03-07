@@ -2,11 +2,14 @@
 
 <p>You have <%= @recipes.count %> saved recipe(s)</p>
 <% @recipes.each do |recipe| %>
-  <p><a href="/users/<%= get_user_name %>/recipes/<%= recipe.id %>"><%= recipe.name %></a></p>
+<div class="card">
+  <div class="card-header">
+    <%= recipe.name %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= recipe.description %></h5>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+  
 <% end %>
-
-<br>
-<p><a href="/users/<%= get_user_name %>/recipes/new">Create a new recipe</a></p>
-<p><a href="/users/<%= get_user_name %>/recipes/search">Search for recipes</a></p>
-
-<a href='/users/logout'>Log out</a>
