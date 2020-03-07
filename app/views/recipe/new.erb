@@ -1,5 +1,5 @@
 <h1>Create a new Recipe</h1>
-<form method="post" action="/users/:user_name/new">
+<form method="post" action="/users/<%= get_user_name %>/new">
   <p>
     <label for="name">Name</>
     <input type="text" name="name" />
@@ -8,6 +8,10 @@
     <label for="description">Description</label>
     <textarea name="description"></textarea>
   </p>
+  <p>
+    <label for="rating">Rating</>
+    <input type="text" name="rating" />
+  </p>  
   <p>
     <label for="ingredients">Ingredients</label>
     <textarea name="ingredients"></textarea>

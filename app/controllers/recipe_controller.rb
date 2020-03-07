@@ -40,12 +40,18 @@ class RecipeController < ApplicationController
     erb :'/recipe/edit'
   end
 
+  post '/users/:user_name/new' do
+    Recipe.find_or_create_by({name: params[:name], href: nil, rating: params[:rating], description: params[:description], ingredients: params[:ingredients], directions: params[:directions], user_id: get_user_id})
+    
+    redirect to "/users/#{get_user_name}"
+  end
+
   post '/users/:user_name/recipes/new/:id' do
     @current_user = current_user
     # get the indicated (id) recipe from temp_recipe database using params[:id]
     recipe = TempRecipe.find_by(id: params[:id])
     # and save it into the user's recipes using @current_user.id
-    r = Recipe.find_or_create_by({name: recipe.name, href: recipe.href, rating: recipe.rating, description: recipe.description, ingredients: recipe.ingredients, directions: recipe.directions, user_id: @current_user.id})
+    Recipe.find_or_create_by({name: recipe.name, href: recipe.href, rating: recipe.rating, description: recipe.description, ingredients: recipe.ingredients, directions: recipe.directions, user_id: @current_user.id})
   
     redirect :'/users/:user_name'
   end
