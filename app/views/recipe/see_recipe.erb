@@ -17,6 +17,6 @@
   <% end %>
 <% end %>
 <br><br>
-<form method="post" value="hello">
+<form method="post" action="/users/<%= get_user_name %>/recipes/new/<%= @recipe.id %>">
   <input type="submit" value="Save">
 </form>

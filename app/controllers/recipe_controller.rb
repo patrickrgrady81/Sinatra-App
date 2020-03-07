@@ -53,7 +53,7 @@ class RecipeController < ApplicationController
     # and save it into the user's recipes using @current_user.id
     Recipe.find_or_create_by({name: recipe.name, href: recipe.href, rating: recipe.rating, description: recipe.description, ingredients: recipe.ingredients, directions: recipe.directions, user_id: @current_user.id})
   
-    redirect :'/users/:user_name'
+    redirect :"/users/#{get_user_name}"
   end
 
   patch '/users/:user_name/recipes/:id' do 
