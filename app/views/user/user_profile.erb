@@ -4,11 +4,11 @@
 <% @recipes.each do |recipe| %>
 <div class="card">
   <div class="card-header">
-    <%= recipe.name %>
+    <h2><%= recipe.name %></h2>
   </div>
   <div class="card-body">
     <h5 class="card-title"><%= recipe.description %></h5>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <a href="/users/<%= get_user_name %>/recipes/<%= recipe.id %>" class="btn btn-primary">See Full Recipe</a>
   </div>
 </div>
   
