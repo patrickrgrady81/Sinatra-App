@@ -1,6 +1,7 @@
 <%= @recipe.name %>
 
-<form method="post" value="">
+<form method="post" action="/users/<%= get_user_name %>/recipes/<%= params[:recipe_name] %>">
+<input id="hidden" type="hidden" name="_method" value="PATCH">
   <p>
   <label for="name">Name</label>
   <input type="text" name="name" value="<%= @recipe.name %>">
@@ -15,7 +16,7 @@
   <label for="rating">Rating</label>
   <input type="text" name="rating" value="<%= @recipe.rating %>">
   </p>
-
+  
   <p>
   <label for="ingredients">Ingredients</label>
   <textarea name="ingredients">

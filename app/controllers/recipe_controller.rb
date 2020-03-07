@@ -21,7 +21,6 @@ class RecipeController < ApplicationController
     Scraper.new(current_user.id).update_recipe(@recipe)
     @ingredients = to_array(@recipe.ingredients)
     @directions = to_array(@recipe.directions)
-    # raise @recipe.ingredients.inspect
     erb :"recipe/see_recipe"
   end
  
@@ -42,7 +41,6 @@ class RecipeController < ApplicationController
   end
 
   post '/users/:user_name/recipes/new/:id' do
-    # "I am a new Recipe #{params[:id]}"
     @current_user = current_user
     # get the indicated (id) recipe from temp_recipe database using params[:id]
     recipe = TempRecipe.find_by(id: params[:id])
@@ -52,11 +50,17 @@ class RecipeController < ApplicationController
     redirect :'/users/:user_name'
   end
 
+  patch '/users/:user_name/recipes/:id' do 
+    ingredients = pretty(params[:ingredients])
+    directions = pretty(params[:directions])
+    recipe = Recipe.find_by(name: params[:name])
+    recipe.update(name: recipe.name, description: recipe.description, rating: recipe.rating, ingredients: ingredients, directions: directions)
+    recipe = Recipe.find_by(name: params[:name])
+    redirect to "/users/#{get_user_name}/recipes/#{recipe.id}"
+  end
+
   delete '/users/:user_name/recipes/:id' do 
     #delete from db
-    # User.find(15).destroy
-    # User.destroy(15)
-    # User.where(age: 20).destroy_all
     r  = Recipe.find(params[:id])
     r.destroy if r.user == current_user
     

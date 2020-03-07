@@ -120,5 +120,33 @@ class ApplicationController < Sinatra::Base
       # binding.pry
       collection.compact
     end
+
+    def pretty(str)
+    str = str.gsub(/\r/,",")
+    str = str.gsub(/\n/,"") 
+    # gsub "1. " out
+    str = str.gsub(/\d{1}\.\s/, "")
+    # gsub "<br>" out
+    str = str.gsub(/<br>/, "")
+    str = str.split(",")
+    str = str.collect do |s|
+      s.strip
+    end
+    str = str.collect do |s|
+      s if s != ""
+    end
+    str = str.compact 
+    # binding.pry
+    str = str.collect do |s|
+      if s[-1] != ","
+        s = "#{s},"
+      end
+    end
+    # binding.pry
+    str.join(" ")
+
+
+
+    end
   end
 end
