@@ -41,7 +41,7 @@ class Scraper
 
     def scrape_for_ingredients(doc, recipe)
         
-        index = 1
+        # index = 1
         # while doc.css("ul#lst_ingredients_" + index.to_s).count > 0 do
         #     doc.css("ul#lst_ingredients_" + index.to_s + " li").each{|ing|
         #         ingredients << ing.inner_text.strip.to_s
@@ -63,4 +63,5 @@ class Scraper
         # Save directions to db
         recipe.directions = directions
     end
+
 end

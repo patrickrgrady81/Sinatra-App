@@ -8,6 +8,10 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "pats_secret"
   end
 
+  get '/goto/href/:href' do 
+    raise params.inspect
+  end
+
   get "/" do
     if logged_in?
       redirect "/users/#{get_user_name}"
@@ -71,12 +75,6 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get '/users/:user_name/edit/:recipe_name' do 
-    # find the recipe by recipe name in db
-    @recipe = Recipe.find_by(name: params[:recipe_name])
-    erb :'/recipe/edit'
-  end
-
   helpers do
     def logged_in?
       return false if !session[:user]
@@ -101,6 +99,26 @@ class ApplicationController < Sinatra::Base
 
     def get_user_name 
       session[:user][:user_name]
+    end
+
+    def to_array(str)
+      # remove all " and all [] 
+
+      s1 = str.gsub("[", '')
+      s2 = s1.gsub(/^\"/, '')
+      s3 = s2.gsub("\"", '*')
+      s4 = s3.gsub("]", '')
+      s5 = s4.gsub("Add all ingredients to list", "")
+      a = s5.split("*")
+      collection = a.collect do |a2|
+        if a2 == ", " || a2 == ""
+          a2 = nil
+        else
+          a2
+        end
+      end
+      # binding.pry
+      collection.compact
     end
   end
 end

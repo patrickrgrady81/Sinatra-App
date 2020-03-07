@@ -1,6 +1,6 @@
 <%= @recipe.name %>
 
-<form>
+<form method="post" value="">
   <p>
   <label for="name">Name</label>
   <input type="text" name="name" value="<%= @recipe.name %>">
@@ -18,12 +18,24 @@
 
   <p>
   <label for="ingredients">Ingredients</label>
-  <textarea name="ingredients"><%= @recipe.ingredients %></textarea>
-  </p>
+  <textarea name="ingredients">
+  <% @ingredients.each do |ingredient|%>
+      <%= ingredient %>
+  <% end %> 
+  </textarea>
 
   <p>
   <label for="directions">Directions</label>
-  <textarea name="directions"><%= @recipe.directions %></textarea>
+  <textarea name="directions">
+    <% index = 1 %>
+    <% @directions.each do |direction|%>
+      <% if direction %>
+        <% direction.gsub(/\\n Watch Now$/, "") %>
+        <%= "#{index}. #{direction}" %><br>
+        <% index += 1 %>
+      <% end %>
+    <% end %>
+  </textarea>
   </p>
 
   <input type="Submit" value="Save">

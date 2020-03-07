@@ -19,13 +19,26 @@ class RecipeController < ApplicationController
   get '/users/:user_name/recipes/new/:id' do 
     @recipe = TempRecipe.find_by(id: params[:id])
     Scraper.new(current_user.id).update_recipe(@recipe)
+    @ingredients = to_array(@recipe.ingredients)
+    @directions = to_array(@recipe.directions)
     # raise @recipe.ingredients.inspect
     erb :"recipe/see_recipe"
   end
  
   get '/users/:user_name/recipes/:id' do
     @recipe = Recipe.where("id = #{params[:id]}")
+    @recipe = @recipe[0]
+    @ingredients = to_array(@recipe.ingredients)
+    @directions = to_array(@recipe.directions)
     erb :'/recipe/see_my_recipe'
+  end
+
+  get '/users/:user_name/edit/:recipe_name' do 
+    # find the recipe by recipe name in db
+    @recipe = Recipe.find_by(name: params[:recipe_name])
+    @ingredients = to_array(@recipe.ingredients)
+    @directions = to_array(@recipe.directions)
+    erb :'/recipe/edit'
   end
 
   post '/users/:user_name/recipes/new/:id' do

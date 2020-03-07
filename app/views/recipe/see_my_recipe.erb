@@ -1,18 +1,27 @@
-<h1><%= @recipe[0].name %></h1>
-<h3><%= @recipe[0].description %></h3>
-<p><b><%= @recipe[0].rating %></p></b>
-<p><%= @recipe[0].ingredients %></p>
-<p><%= @recipe[0].directions %></p>
+<a href="<%=@recipe.href%>"><h1><%= @recipe.name %><%= @recipe.name %></h1></a>
+<h3><%= @recipe.description %></h3>
+<p><b><%= @recipe.rating %></p></b>
 
-<%# <form>
-<input id="hidden" type="hidden" name="_method" value="PATCH">
-<input type="submit" value="Edit">
-</form> %>
+<h3>Ingredients:</h3>
+<% @ingredients.each do |ingredient|%>
+  <p><%= ingredient %></p>
+<% end %>
 
-<a href="/users/<%= get_user_name %>/edit/<%= @recipe[0].name %>">Edit This Recipe</a>
+<h3>Directions:</h3>
+<% index = 1 %>
+<% @directions.each do |direction|%>
+  <% if direction %>
+    <% direction.gsub(/\\n Watch Now$/, "") %>
+    <%= "#{index}. #{direction}" %><br>
+    <% index += 1 %>
+  <% end %>
+<% end %>
+<br><br>
+
+<button><a href="/users/<%= get_user_name %>/edit/<%= @recipe.name %>">Edit This Recipe</a></button><br><br>
 
 <form method="POST" value="/users/<%= session[:user] %>/recipes">
 <input id="hidden" type="hidden" name="_method" value="DELETE">
-<input type="submit" value="Delete">
+<input type="submit" value="Delete This Recipe">
 </form>
 

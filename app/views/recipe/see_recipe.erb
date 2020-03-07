@@ -1,20 +1,22 @@
-
-<h1><%= @recipe.name %></h1>
+<a href="<%=@recipe.href%>"><h1><%= @recipe.name %><%= @recipe.name %></h1></a>
 <h3><%= @recipe.description %></h3>
 <p><b><%= @recipe.rating %></p></b>
 
-<% if @recipe.ingredients != "[]" %>
-<p><%= @recipe.ingredients %></p>
-<% else %>
-<p><%= "Sorry, No Ingredients Found. Please Search Again!" %></p>
+<h3>Ingredients:</h3>
+<% @ingredients.each do |ingredient|%>
+  <p><%= ingredient %></p>
 <% end %>
 
-<% if @recipe.directions != "[]" %>
-<p><%= @recipe.directions %></p>
-<% else %>
-<p><%= "Sorry, No Directions Found. Please Search Again!" %></p>
+<h3>Directions:</h3>
+<% index = 1 %>
+<% @directions.each do |direction|%>
+  <% if direction %>
+    <% direction.gsub(/\\n Watch Now$/, "") %>
+    <%= "#{index}. #{direction}" %><br>
+    <% index += 1 %>
+  <% end %>
 <% end %>
-
+<br><br>
 <form method="post" value="hello">
   <input type="submit" value="Save">
 </form>
