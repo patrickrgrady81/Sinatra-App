@@ -21,20 +21,15 @@
   <label for="ingredients">Ingredients</label>
   <textarea name="ingredients">
   <% @ingredients.each do |ingredient|%>
-      <%= ingredient %>
+      <%= ingredient.ingredient %>
   <% end %> 
   </textarea>
 
   <p>
   <label for="directions">Directions</label>
   <textarea name="directions">
-    <% index = 1 %>
-    <% @directions.each do |direction|%>
-      <% if direction %>
-        <% direction.gsub(/\\n Watch Now$/, "") %>
-        <%= "#{index}. #{direction}" %><br>
-        <% index += 1 %>
-      <% end %>
+    <% @directions.each.with_index(1) do |direction, i|%>
+        <%= "#{i}. #{direction.direction}" %><br>
     <% end %>
   </textarea>
   </p>

@@ -121,7 +121,7 @@ class ApplicationController < Sinatra::Base
       collection.compact
     end
 
-    def pretty(str)
+    def pretty_save(str)
     str = str.gsub(/\r/,",")
     str = str.gsub(/\n/,"") 
     # gsub "1. " out
@@ -136,17 +136,6 @@ class ApplicationController < Sinatra::Base
       s if s != ""
     end
     str = str.compact 
-    # binding.pry
-    str = str.collect do |s|
-      if s[-1] != ","
-        s = "#{s},"
-      end
-    end
-    # binding.pry
-    str.join(" ")
-
-
-
     end
   end
 end

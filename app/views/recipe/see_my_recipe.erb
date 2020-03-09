@@ -1,20 +1,15 @@
-<a href="<%=@recipe.href%>"><h1><%= @recipe.name %><%= @recipe.name %></h1></a>
+<a href="<%=@recipe.href%>"><h1><%= @recipe.name %></h1></a>
 <h3><%= @recipe.description %></h3>
 <p><b><%= @recipe.rating %></p></b>
 
 <h3>Ingredients:</h3>
 <% @ingredients.each do |ingredient|%>
-  <p><%= ingredient %></p>
+  <p><%= ingredient.ingredient %></p>
 <% end %>
 
 <h3>Directions:</h3>
-<% index = 1 %>
-<% @directions.each do |direction|%>
-  <% if direction %>
-    <% direction.gsub(/\\n Watch Now$/, "") %>
-    <%= "#{index}. #{direction}" %><br>
-    <% index += 1 %>
-  <% end %>
+<% @directions.each.with_index(1) do |direction, i|%>
+    <%= "#{i}. #{direction.direction}" %><br>
 <% end %>
 <br><br>
 
