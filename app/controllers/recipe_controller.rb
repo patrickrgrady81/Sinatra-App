@@ -72,13 +72,13 @@ class RecipeController < ApplicationController
   post '/users/:user_name/new' do
     recipe = Recipe.find_or_create_by({name: params[:name], href: nil, rating: params[:rating], description: params[:description], user_id: get_user_id})
     
-    ingredients = to_array(params[:ingredients])
+    ingredients = pretty_save(params[:ingredients])
     ingredients.each do |ing|
       # Save ingredient to db
       Ingredient.create(ingredient: ing, recipe_id: recipe.id)
     end
     # save all the directions
-    directions = to_array(params[:directions])
+    directions = pretty_save(params[:directions])
     directions.each do |dir|
       # Save direction to db
       Direction.create(direction: dir, recipe_id: recipe.id)
