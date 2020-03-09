@@ -65,10 +65,21 @@ a.visited {
   width: 200px;
 }
 
+#recipe-img:hover {
+  height: 225px;
+  width: 225px;
+}
+
 #welcome {
-  padding-left: 25px;
+  margin-left: 25px;
+  margin-top: 20px;
   font-family: 'Bellota', cursive;
   font-size: 90px;
+  font-weight: normal;
+}
+
+#welcome:hover {
+  font-weight: bold;
 }
 
 #card-container {
@@ -86,11 +97,21 @@ img.chef-img {
   margin-left: 50px;
 }
 
+img.chef-img:hover {
+  height: 165px;
+  width: 165px;
+}
+
 .about_card {
   font-family: 'Bellota', cursive;
   font-size: 30px;
+  font-weight: normal;
   margin-left: 5px;
   margin-top: 40px;
+}
+
+.about_card:hover {
+    font-weight: bold;
 }
 
 #home {
