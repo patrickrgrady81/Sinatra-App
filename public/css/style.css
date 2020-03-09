@@ -1,6 +1,6 @@
 :root {
   /*  --bg-color: rgb(162, 197, 232); */
-  --bg-color: white;
+  /* --bg-color: white; */
  
 }
 
@@ -10,6 +10,8 @@
 
 body {
   margin-left: 20px;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 footer {
@@ -48,6 +50,58 @@ textarea {
   height: 100px;
 }
 
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+ }
+
 a.visited {
   color: black;
 }
+
+#recipe-img {
+  height: 200px;
+  width: 200px;
+}
+
+#welcome {
+  padding-left: 25px;
+  font-family: 'Bellota', cursive;
+  font-size: 90px;
+}
+
+#card-container {
+  margin-top: 60px;
+  display: flex;
+}
+
+.img_card {
+  display: flex;
+}
+
+img.chef-img {
+  height: 150px;
+  width: 150px;
+  margin-left: 50px;
+}
+
+.about_card {
+  font-family: 'Bellota', cursive;
+  font-size: 30px;
+  margin-left: 5px;
+  margin-top: 40px;
+}
+
+#home {
+  margin-top: 30px;
+}
+
+
+/* 
+Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></Icons>
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> 
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Icons made by <a href="https://www.flaticon.com/authors/nhor-phai" title="Nhor Phai">Nhor Phai</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+*/

@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe Revamp</title>
-</head>
-<body>
-  <h1>Welcome to Recipe Revamp</h1>
-  <h2>A Recipe Organizer</h2>
-  <div>
-    <%# <p><a href="/users/login">Log In</a></p>
-    <p><a href="/users/new">Sign Up</a></p> %>
-    <%# if logged in go to profile %>
-    <%# if not logged in say please sign in %>
-    <%# if I get here, I am not logged in! %>
-    <% if !logged_in? %>
-    <h1>Hope you enjoy the app, please login or register<h2>
-    <% end %>
+<div id="home">
+  <img id="recipe-img" src="/images/cook.svg" alt="image of a recipe" />
+  <span id="welcome">Welcome to Recipe Revamp</span>
+  <div id="card-container">
+    <div class="img_card">
+      <img src="/images/chef.svg" alt="chef 1" class="chef-img">
+      <div id="card1" class="about_card">Create and save<br>your own recipes</div>
+    </div>
+    <div class="img_card">
+      <img src="/images/chef3.svg" alt="chef 3" class="chef-img">
+      <div id="card2" class="about_card">Search for and<br>save new recipes</div>
+    </div>
+    <div class="img_card">
+      <img src="/images/chef2.svg" alt="chef 2" class="chef-img">
+      <div id="card3" class="about_card">View and edit all<br>your saved recipes</div> 
+    </div>
   </div>
-</body>
-</html>
+</div>
