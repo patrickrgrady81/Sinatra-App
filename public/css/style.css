@@ -118,6 +118,70 @@ img.chef-img:hover {
   margin-top: 30px;
 }
 
+.oc {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.ic {
+  padding: 20px;
+  margin: 25px, 15px, 15px, 15px;
+  display: inline-block;
+  text-align: center;
+  font-family: 'Bellota', cursive;
+  border-style: outset;
+  border-width: 4px;
+  border-radius: 8px;
+  background-color: lightgreen;
+
+}
+
+.my-form {
+  padding: 20px;
+  margin-top: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+#new-form {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+}
+
+#inner-container-new {
+  width: 70%
+}
+
+#inner-container-login, #inner-container-signup {
+  width: 30%;
+}
+
+#new-form, #search-form {
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+#inner-container-search {
+  width: 50%
+}
+
+.submit-btn {
+  font-weight: bold;
+}
+
+#search-bar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 400px;
+}
+
 
 /* 
 Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></Icons>

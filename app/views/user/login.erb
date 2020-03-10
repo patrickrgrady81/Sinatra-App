@@ -1,14 +1,20 @@
-<h1>Log In</h1>
-<form method="POST" action="/users/login">
-  <p>
-    <label for="user_email">User Name:</label>
-    <input type="input" name="user_name" >
-  </p>
-  <p>
-    <label for="user_password">Password:</label>
-    <input type="password" name="user_password">
-  </p>
-  <input type="submit" value="Submit">
-</form>
+<div id="login-page" class="form-page">
+  <div id="outer-container-login" class="oc">
+    <div id="inner-container-login" class="ic">
+      <h2>Log In</h2>
+      <form method="POST" action="/users/login" id="login-form" class="my-form">
+        <p>
+          <label for="user_name" id="user_name_label" class="label">User Name</label>
+          <input type="input" name="user_name" class="input">
+        </p>
+        <p>
+          <label for="user_password" id="user_password_label" class="label">Password</label>
+          <input type="password" name="user_password" class="input">
+        </p>
+        <input type="submit" value="Submit" class="submit-btn">
+      </form>
 
-<div><%= @error %></div>
+      <div><%= @error %></div>
+    </div>
+  </div>
+</div>
