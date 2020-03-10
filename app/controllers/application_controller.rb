@@ -8,10 +8,6 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "pats_secret"
   end
 
-  get '/goto/href/:href' do 
-    raise params.inspect
-  end
-
   get "/" do
     if logged_in?
       redirect "/users/#{get_user_name}"
@@ -75,6 +71,34 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/users/:user_name/change_display' do 
+    erb :'/user/change_display'
+  end
+
+  post '/change_display' do 
+    if current_user.authenticate(params[:password])
+      current_user.update(display_name: params[:display_name], password: params[:password])
+      redirect to '/users/:user_name'
+    else
+      @error = "Incorrect Password"
+      erb :'/user/change_display'
+    end
+  end
+
+  get '/users/:user_name/change_password' do 
+    erb :'/user/change_password'
+  end
+
+  post '/change_password' do 
+    if current_user.authenticate(params[:current_password])
+      current_user.update(password: params[:new_password])
+      redirect to '/users/:user_name'
+    else
+      @error = "Incorrect Password"
+      erb :'/user/change_password'
+    end
+  end
+
   helpers do
     def logged_in?
       return false if !session[:user]
@@ -91,6 +115,10 @@ class ApplicationController < Sinatra::Base
 
     def get_user_id
       current_user.id
+    end
+
+    def get_display_name
+      current_user.display_name
     end
 
     def get_user_email

@@ -1,6 +1,13 @@
-<h1><%= current_user.user_name %></h1>
+<a href="/users/<%= get_user_name %>/change_display"><h1>
+<% if !current_user.display_name %>
+  <%= current_user.user_name  %>
+<% else %>
+  <%= current_user.display_name  %>
+<% end %>
+</h1></a>
 
-<p>You have <%= @recipes.count %> saved recipe(s)</p>
+<a href="/users/<%= get_user_name %>/change_password">change password</a><br><br>
+<h5>You have <%= @recipes.count %> saved recipe(s)</h5><br>
 <% @recipes.each do |recipe| %>
 <div class="card">
   <div class="card-header">

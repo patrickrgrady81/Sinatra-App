@@ -1,0 +1,19 @@
+<div class="form-page">
+  <div class="oc">
+    <div id="inner-container-display" class="ic">
+      <h2>Change Display Name</h2>
+      <form method="post" action="/change_display" id="change-display" class="my-form">
+        <p>
+          <label for="user_name" id="display_name_label" class="label">New Display Name</label>
+          <input type="input" name="display_name" class="input">
+        </p>
+        <p>
+          <label for="password" id="password_label" class="label">Enter Password</label>
+          <input type="password" name="password" class="input">
+          <div id="error"><%= @error %></div>
+        </p>
+        <input type="submit" value="Change" class="submit-btn"/>
+      </form>
+    </div>
+  </div>
+</div>
