@@ -120,13 +120,12 @@ img.chef-img:hover {
 .ic {
   padding: 20px;
   margin: 25px, 15px, 15px, 15px;
+  background-color: lightgreen;
   display: inline-block;
   text-align: center;
   font-family: 'Bellota', cursive;
-  border-style: outset;
-  border-width: 4px;
+  border: 4px outset lightgrey;
   border-radius: 8px;
-  background-color: lightgreen;
 
 }
 
@@ -167,7 +166,11 @@ img.chef-img:hover {
 }
 
 .submit-btn {
+  padding: 7px;
+  background-color: lightgreen;
   font-weight: bold;
+  border: 1px solid black;
+  border-radius: 8px;
 }
 
 #search-bar {
