@@ -52,8 +52,10 @@ class RecipeController < ApplicationController
     @recipe = @recipe[0]
     # get ingredients from ingredient table
     @ingredients = Ingredient.where("recipe_id = #{@recipe.id}")
+    
     # get directions from direction table
     @directions = Direction.where("recipe_id = #{@recipe.id}")
+    
     # binding.pry
     erb :'/recipe/see_my_recipe'
   end
@@ -61,11 +63,11 @@ class RecipeController < ApplicationController
   get '/users/:user_name/edit/:recipe_name' do 
     # find the recipe by recipe name in db
     @recipe = Recipe.find_by(name: params[:recipe_name])
-
     # get ingredients from ingredient table
-    @ingredients = Ingredient.where(:recipe_id => @recipe.id)
+    @ing = Ingredient.where(:recipe_id => @recipe.id).to_json
     # get directions from direction table
-    @directions = Direction.where(:recipe_id => @recipe.id)
+    @dir = Direction.where(:recipe_id => @recipe.id).to_json
+    # binding.pry
     erb :'/recipe/edit'
   end
 

@@ -1,3 +1,11 @@
+<script> 
+  let ingredients = <%= @ing %>;
+  let directions = <%= @dir %>;
+  let data = new ParseData(ingredients, directions);
+  let iList = new LinkedList(data.ingredients);
+  let dList = new LinkedList(data.directions);
+</script>
+
 <div id="login-page" class="form-page">
   <div id="outer-container-new" class="oc">
     <div id="inner-container-new" class="ic">
@@ -19,22 +27,21 @@
         <input type="text" name="rating" value="<%= @recipe.rating %>">
         </p>
         
-        <p>
         <label for="ingredients" class="label">Ingredients</label>
-        <textarea name="ingredients">
-        <% @ingredients.each do |ingredient|%>
-            <%= ingredient.ingredient %>
-        <% end %> 
-        </textarea>
+        <%# @ingredients %>
+        <div id="for_ing"></div>
 
-        <p>
+
         <label for="directions" class="label">Directions</label>
-        <textarea name="directions">
-          <% @directions.each.with_index(1) do |direction, i|%>
-              <%= "#{i}. #{direction.direction}" %><br>
-          <% end %>
-        </textarea>
-        </p>
+        <%# @directions %>
+        <div id="for_dir"></div>
+
+        <script>
+        ing();
+        </script>
+
+
+
 
         <input type="Submit" value="Save" class="submit-btn">
 
