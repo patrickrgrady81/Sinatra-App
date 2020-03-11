@@ -91,21 +91,21 @@ class RecipeController < ApplicationController
   end
 
   patch '/users/:user_name/recipes/:id' do 
-    ingredients = pretty_save(params[:ingredients])
-    directions = pretty_save(params[:directions])
+    raise params.inspect
     recipe = Recipe.find_by(name: params[:name])
     recipe.update(name: recipe.name, description: recipe.description, rating: recipe.rating)
     recipe = Recipe.find_by(name: params[:name])
 
-    Ingredient.where(:recipe_id => recipe.id ).destroy_all
-    ingredients.each do |i|
-      Ingredient.create(ingredient: i, recipe_id: recipe.id)
-    end
 
-    Direction.where(:recipe_id => recipe.id ).destroy_all
-    directions.each do |d|
-      Direction.create(direction: d, recipe_id: recipe.id)
-    end
+    # Ingredient.where(:recipe_id => recipe.id ).destroy_all
+    # ingredients.each do |i|
+    #   Ingredient.create(ingredient: i, recipe_id: recipe.id)
+    # end
+
+    # Direction.where(:recipe_id => recipe.id ).destroy_all
+    # directions.each do |d|
+    #   Direction.create(direction: d, recipe_id: recipe.id)
+    # end
     redirect to "/users/#{get_user_name}/recipes/#{recipe.id}"
   end
 

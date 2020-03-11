@@ -1,30 +1,70 @@
 
-function populate(for_div, list) {
+function go() {
+  let go_btn = document.querySelector('form');
+
+  go_btn.onsubmit = function(e){
+    e.preventDefault();
+    console.log(e.target)
+    // x is the object with all the properties for params
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(x)
+    }).then( /* do stuff */)
+  }
+}
+
+function delete_me(index, type){
+  console.log(index);
+  console.log(type)
+}
+
+function add_one(index, type){
+  console.log(index);
+}
+
+
+function populate(for_div, linkedList) {
   var the_div = document.getElementById(for_div);
 
   let new_p;
   let new_element;
   let new_btn_delete;
   let new_btn_add;
+  let input_id;
 
-  for(let i = 1; i <= list.list.length; i++){
+  for(let i = 1; i <= linkedList.list.length; i++){
     new_p = document.createElement("P");
     
     new_element = document.createElement("INPUT");
     new_element.setAttribute("type", "text");
-    new_element.setAttribute("value", list.find_by_next(i).data);
+    new_element.setAttribute("value", linkedList.find_by_next(i).data);
+    if(for_div == "for_ing"){
+      input_id = `ing + ${i - 1}`;
+    } else {
+      input_id = `dir + ${i - 1}`;
+    }
+    new_element.setAttribute("id", input_id);
 
 
     new_btn_delete = document.createElement("INPUT");
     new_btn_delete.setAttribute("type", "button");
     new_btn_delete.setAttribute("value", "x");
     new_btn_delete.setAttribute("class", "delete-btn");
+    // let data_id = i-1;
+    // let list = linkedList;
+    // data = {"id": data_id, "data_list": list};
+    new_btn_delete.setAttribute("onClick", `delete_me(${i-1}, "${linkedList.type}")`);
     
 
     new_btn_add = document.createElement("INPUT");
     new_btn_add.setAttribute("type", "button");
     new_btn_add.setAttribute("value", "+");
     new_btn_add.setAttribute("class", "add-btn");
+    new_btn_add.setAttribute("onClick", `add_one(${i-1}, "${linkedList.type}")`);
 
     new_p.appendChild(new_element);
     new_p.appendChild(new_btn_delete);
@@ -59,11 +99,12 @@ class Link {
 }
 
 class LinkedList {
-  constructor(list_data){
+  constructor(list_data, type){
     this.list = [];
     while(current_count < list_data.length){
       this.list.push(new Link(current_count, list_data[current_count], current_count-1, ++current_count));
     }
+    this.type = type;
   }
 
 
