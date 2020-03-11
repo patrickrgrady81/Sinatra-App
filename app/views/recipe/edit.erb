@@ -21,11 +21,21 @@
         
         <p>
         <label for="ingredients" class="label">Ingredients</label>
+
+
+
+
+
         <textarea name="ingredients">
         <% @ingredients.each do |ingredient|%>
             <%= ingredient.ingredient %>
         <% end %> 
         </textarea>
+
+
+
+
+
 
         <p>
         <label for="directions" class="label">Directions</label>
@@ -35,6 +45,11 @@
           <% end %>
         </textarea>
         </p>
+
+
+
+
+        
 
         <input type="Submit" value="Save" class="submit-btn">
 
