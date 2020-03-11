@@ -6,6 +6,7 @@ function go() {
     e.preventDefault();
     console.log(e.target)
     // x is the object with all the properties for params
+    let url = `/users/${user_name}/recipes/${recipe_name}`;
     fetch(url, {
       method: 'POST',
       headers: {

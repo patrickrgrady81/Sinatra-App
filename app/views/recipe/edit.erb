@@ -1,6 +1,8 @@
 <script> 
   let ingredients = <%= @ing %>;
   let directions = <%= @dir %>;
+  let user_name = "<%= get_user_name %>";
+  let recipe_name = "<%= @recipe.name %>";
   let data = new ParseData(ingredients, directions);
   let iList = new LinkedList(data.ingredients, "ing");
   current_count = 0;
