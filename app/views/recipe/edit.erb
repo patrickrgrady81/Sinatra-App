@@ -3,6 +3,7 @@
   let directions = <%= @dir %>;
   let data = new ParseData(ingredients, directions);
   let iList = new LinkedList(data.ingredients);
+  current_count = 0;
   let dList = new LinkedList(data.directions);
 </script>
 
@@ -30,14 +31,16 @@
         <label for="ingredients" class="label">Ingredients</label>
         <%# @ingredients %>
         <div id="for_ing"></div>
+        <script>
+          populate("for_ing", iList)
+        </script>
 
 
         <label for="directions" class="label">Directions</label>
         <%# @directions %>
         <div id="for_dir"></div>
-
         <script>
-        ing();
+          populate("for_dir", dList)
         </script>
 
 

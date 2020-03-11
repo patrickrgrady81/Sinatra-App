@@ -1,11 +1,36 @@
 
-function ing() {
-  var ing_div = document.getElementById('for_ing');
+function populate(for_div, list) {
+  var the_div = document.getElementById(for_div);
 
-  // var node = document.createElement("LI"); 
-  // var textnode = document.createTextNode("Web Technology"); 
+  let new_p;
+  let new_element;
+  let new_btn_delete;
+  let new_btn_add;
 
-  ing_div.appendChild(textnode);
+  for(let i = 1; i <= list.list.length; i++){
+    new_p = document.createElement("P");
+    
+    new_element = document.createElement("INPUT");
+    new_element.setAttribute("type", "text");
+    new_element.setAttribute("value", list.find_by_next(i).data);
+
+
+    new_btn_delete = document.createElement("INPUT");
+    new_btn_delete.setAttribute("type", "button");
+    new_btn_delete.setAttribute("value", "x");
+    new_btn_delete.setAttribute("class", "delete-btn");
+    
+
+    new_btn_add = document.createElement("INPUT");
+    new_btn_add.setAttribute("type", "button");
+    new_btn_add.setAttribute("value", "+");
+    new_btn_add.setAttribute("class", "add-btn");
+
+    new_p.appendChild(new_element);
+    new_p.appendChild(new_btn_delete);
+    new_p.appendChild(new_btn_add);
+    the_div.appendChild(new_p);
+  }
 }
 
 
@@ -40,6 +65,8 @@ class LinkedList {
       this.list.push(new Link(current_count, list_data[current_count], current_count-1, ++current_count));
     }
   }
+
+
 
   list_empty(){
     return this.list.length == 0;
