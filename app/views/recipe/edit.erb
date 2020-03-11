@@ -47,8 +47,9 @@
 
 
 
-
-        <input type="submit" value="Save" class="submit-btn" id="go-btn">
+        <% if get_user_id ==  @recipe.user_id%>
+          <input type="submit" value="Save" class="submit-btn" id="go-btn">
+        <% end %>
 
         <script>
           go();

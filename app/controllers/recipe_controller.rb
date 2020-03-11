@@ -77,13 +77,15 @@ class RecipeController < ApplicationController
     ingredients = pretty_save(params[:ingredients])
     ingredients.each do |ing|
       # Save ingredient to db
-      Ingredient.create(ingredient: ing, recipe_id: recipe.id)
+      recipe.ingredients.create(ingredient: ing)
+      # Ingredient.create(ingredient: ing, recipe_id: recipe.id)
     end
     # save all the directions
     directions = pretty_save(params[:directions])
     directions.each do |dir|
       # Save direction to db
-      Direction.create(direction: dir, recipe_id: recipe.id)
+      recipe.diretions.create(direction: dir)
+      # Direction.create(direction: dir, recipe_id: recipe.id)
     end
 
 

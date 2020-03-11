@@ -4,4 +4,5 @@ use Rack::MethodOverride
 
 # use HelperController
 use RecipeController
+use UserController
 run ApplicationController
