@@ -92,7 +92,7 @@ class Link {
   // next => next head (current_count)
   // if next == current_count then i'm the end
   constructor(head, data, prev, next){
-    this.head = head;
+    this.head = head; // this is my number in the Linked List
     this.data = data;
     this.next = next;
     this.prev = prev
@@ -108,6 +108,8 @@ class LinkedList {
     this.type = type;
   }
 
+  // [head=1, next=5]
+  // [1 next=5] [5 next=4 prev=1] [4 next=2 prev=5] [2 prev=4 next=3 ] [3 prev=2] 
 
 
   list_empty(){
