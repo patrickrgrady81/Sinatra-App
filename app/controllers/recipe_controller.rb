@@ -52,8 +52,10 @@ class RecipeController < ApplicationController
     @recipe = @recipe[0]
     # get ingredients from ingredient table
     @ingredients = Ingredient.where("recipe_id = #{@recipe.id}")
+    
     # get directions from direction table
     @directions = Direction.where("recipe_id = #{@recipe.id}")
+    
     # binding.pry
     erb :'/recipe/see_my_recipe'
   end
@@ -61,11 +63,11 @@ class RecipeController < ApplicationController
   get '/users/:user_name/edit/:recipe_name' do 
     # find the recipe by recipe name in db
     @recipe = Recipe.find_by(name: params[:recipe_name])
-
     # get ingredients from ingredient table
-    @ingredients = Ingredient.where(:recipe_id => @recipe.id)
+    @ing = Ingredient.where(:recipe_id => @recipe.id).to_json
     # get directions from direction table
-    @directions = Direction.where(:recipe_id => @recipe.id)
+    @dir = Direction.where(:recipe_id => @recipe.id).to_json
+    # binding.pry
     erb :'/recipe/edit'
   end
 
@@ -75,13 +77,15 @@ class RecipeController < ApplicationController
     ingredients = pretty_save(params[:ingredients])
     ingredients.each do |ing|
       # Save ingredient to db
-      Ingredient.create(ingredient: ing, recipe_id: recipe.id)
+      recipe.ingredients.create(ingredient: ing)
+      # Ingredient.create(ingredient: ing, recipe_id: recipe.id)
     end
     # save all the directions
     directions = pretty_save(params[:directions])
     directions.each do |dir|
       # Save direction to db
-      Direction.create(direction: dir, recipe_id: recipe.id)
+      recipe.diretions.create(direction: dir)
+      # Direction.create(direction: dir, recipe_id: recipe.id)
     end
 
 
@@ -89,21 +93,21 @@ class RecipeController < ApplicationController
   end
 
   patch '/users/:user_name/recipes/:id' do 
-    ingredients = pretty_save(params[:ingredients])
-    directions = pretty_save(params[:directions])
+    raise params.inspect
     recipe = Recipe.find_by(name: params[:name])
     recipe.update(name: recipe.name, description: recipe.description, rating: recipe.rating)
     recipe = Recipe.find_by(name: params[:name])
 
-    Ingredient.where(:recipe_id => recipe.id ).destroy_all
-    ingredients.each do |i|
-      Ingredient.create(ingredient: i, recipe_id: recipe.id)
-    end
 
-    Direction.where(:recipe_id => recipe.id ).destroy_all
-    directions.each do |d|
-      Direction.create(direction: d, recipe_id: recipe.id)
-    end
+    # Ingredient.where(:recipe_id => recipe.id ).destroy_all
+    # ingredients.each do |i|
+    #   Ingredient.create(ingredient: i, recipe_id: recipe.id)
+    # end
+
+    # Direction.where(:recipe_id => recipe.id ).destroy_all
+    # directions.each do |d|
+    #   Direction.create(direction: d, recipe_id: recipe.id)
+    # end
     redirect to "/users/#{get_user_name}/recipes/#{recipe.id}"
   end
 

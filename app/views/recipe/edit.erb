@@ -1,8 +1,19 @@
+<script> 
+  let ingredients = <%= @ing %>;
+  let directions = <%= @dir %>;
+  let user_name = "<%= get_user_name %>";
+  let recipe_name = "<%= @recipe.name %>";
+  let data = new ParseData(ingredients, directions);
+  let iList = new LinkedList(data.ingredients, "ing");
+  current_count = 0;
+  let dList = new LinkedList(data.directions, "dir");
+</script>
+
 <div id="login-page" class="form-page">
   <div id="outer-container-new" class="oc">
     <div id="inner-container-new" class="ic">
       <h2 class="head2"><%= @recipe.name %></h2>
-      <form method="post" action="/users/<%= get_user_name %>/recipes/"<%= params[:recipe_name] %> class="my-form">
+      <form method="post" action="/users/<%= get_user_name %>/recipes/ <%= @recipe.name %>" class="my-form">
       <input id="hidden" type="hidden" name="_method" value="PATCH">
         <p>
         <label for="name" class="label">Name</label>
@@ -19,39 +30,30 @@
         <input type="text" name="rating" value="<%= @recipe.rating %>">
         </p>
         
-        <p>
         <label for="ingredients" class="label">Ingredients</label>
+        <div id="for_ing"></div>
+
+        <script>
+          populate("for_ing", iList)
+        </script>
 
 
-
-
-
-        <textarea name="ingredients">
-        <% @ingredients.each do |ingredient|%>
-            <%= ingredient.ingredient %>
-        <% end %> 
-        </textarea>
-
-
-
-
-
-
-        <p>
         <label for="directions" class="label">Directions</label>
-        <textarea name="directions">
-          <% @directions.each.with_index(1) do |direction, i|%>
-              <%= "#{i}. #{direction.direction}" %><br>
-          <% end %>
-        </textarea>
-        </p>
+        <div id="for_dir"></div>
+
+        <script>
+          populate("for_dir", dList)
+        </script>
 
 
 
+        <% if get_user_id ==  @recipe.user_id%>
+          <input type="submit" value="Save" class="submit-btn" id="go-btn">
+        <% end %>
 
-        
-
-        <input type="Submit" value="Save" class="submit-btn">
+        <script>
+          go();
+        </script>
 
       </form>
     </div>
