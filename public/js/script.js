@@ -108,7 +108,7 @@ class LinkedList {
     this.type = type;
   }
 
-  // [head=1, next=5]
+  // [head=1, next=5] etc...
   // [1 next=5] [5 next=4 prev=1] [4 next=2 prev=5] [2 prev=4 next=3 ] [3 prev=2] 
 
 
@@ -120,7 +120,7 @@ class LinkedList {
     let last_link = this.find(current_count - 1);
     // debugger;
     // let i = this.insert(last_link, data);
-    last_link.next = current_count;
+    last_link.next = current_count; // the last one's next is now my head (but I haven't been created quite yet)
     this.list.push(new Link(current_count++, data, current_count, last_link.head));
   }
 
