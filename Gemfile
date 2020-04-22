@@ -9,17 +9,17 @@ gem 'require_all'
 gem 'sinatra', '~> 1.4', '>= 1.4.7'
 gem 'sinatra-activerecord'
 gem 'thin'
-gem 'pg'
 
 group :development do
   gem 'pry'
   gem 'shotgun'
-  # gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3', '~> 1.3.6'
   gem 'tux'
 end
 
-# group :production do
-#   gem 'pg'
-# end
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 ruby '2.6.1'
