@@ -15,4 +15,9 @@ group :development do
   gem 'shotgun'
   gem 'sqlite3', '~> 1.3.6'
   gem 'tux'
+  gem 'pg'
+end
+
+group :production do
+  gem 'pg'
 end
