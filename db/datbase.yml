@@ -16,5 +16,8 @@ test:
 
 production:
   adapter: postgresql
-  database: recipe_revamp
+  encoding: unicode
+  database: metals-directory_production
   pool: 5
+  username: user
+  password: password
