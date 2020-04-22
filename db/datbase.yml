@@ -13,3 +13,8 @@ development:
 test:
   <<: *default
   database: 'my_app_test'
+
+production:
+  adapter: postgresql
+  database: recipe_revamp
+  pool: 5
