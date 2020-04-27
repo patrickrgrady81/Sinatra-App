@@ -15,7 +15,6 @@ class Scraper
     end
 
     def get_page
-        #https://www.allrecipes.com/search/results/?wt=apples&sort=re&page=1
         Nokogiri::HTML(open("https://www.allrecipes.com/search/results/?wt=#{@food}&sort=re&page=#{@page}").read)
     end
 
@@ -32,7 +31,6 @@ class Scraper
     end
 
     def update_recipe(recipe)
-        # get which recipe to update from the db
         doc = Nokogiri::HTML(open(recipe.href).read)
         scrape_for_ingredients(doc, recipe)
         scrape_for_directions(doc, recipe)
@@ -40,15 +38,6 @@ class Scraper
     end
 
     def scrape_for_ingredients(doc, recipe)
-        
-        # index = 1
-        # while doc.css("ul#lst_ingredients_" + index.to_s).count > 0 do
-        #     doc.css("ul#lst_ingredients_" + index.to_s + " li").each{|ing|
-        #         ingredients << ing.inner_text.strip.to_s
-        #     }
-        #     index += 1
-        # end
-
         recipe.ingredients = doc.css("span.recipe-ingred_txt, span.ingredients-item-name").map do |el|
             el.text.strip
         end
@@ -59,8 +48,6 @@ class Scraper
         directions = doc.css("ol.list-numbers.recipe-directions__list li, li.instructions-section-item p").map{|direction|
             direction.text.strip
         }
-        
-        # Save directions to db
         recipe.directions = directions
     end
 

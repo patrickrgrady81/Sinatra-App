@@ -31,7 +31,6 @@ class RecipeController < ApplicationController
     # and save it into the user's recipes using @current_user.id
     recipe = Recipe.find_or_create_by({name: temp_recipe.name, href: temp_recipe.href, rating: temp_recipe.rating, description: temp_recipe.description, user_id: @current_user.id})
     # save all the ingredients
-    # raise recipe.inspect
     ingredients = to_array(temp_recipe.ingredients)
     ingredients.each do |ing|
       # Save ingredient to db
@@ -43,7 +42,6 @@ class RecipeController < ApplicationController
       # Save direction to db
       Direction.create(direction: dir, recipe_id: recipe.id)
     end
-    # binding.pry
     redirect :"/users/#{get_user_name}"
   end
  
@@ -55,8 +53,6 @@ class RecipeController < ApplicationController
     
     # get directions from direction table
     @directions = Direction.where("recipe_id = #{@recipe.id}")
-    
-    # binding.pry
     erb :'/recipe/see_my_recipe'
   end
 
@@ -67,7 +63,6 @@ class RecipeController < ApplicationController
     @ing = Ingredient.where(:recipe_id => @recipe.id).to_json
     # get directions from direction table
     @dir = Direction.where(:recipe_id => @recipe.id).to_json
-    # binding.pry
     erb :'/recipe/edit'
   end
 
@@ -78,14 +73,12 @@ class RecipeController < ApplicationController
     ingredients.each do |ing|
       # Save ingredient to db
       recipe.ingredients.create(ingredient: ing)
-      # Ingredient.create(ingredient: ing, recipe_id: recipe.id)
     end
     # save all the directions
     directions = pretty_save(params[:directions])
     directions.each do |dir|
       # Save direction to db
       recipe.diretions.create(direction: dir)
-      # Direction.create(direction: dir, recipe_id: recipe.id)
     end
 
 
@@ -97,17 +90,7 @@ class RecipeController < ApplicationController
     recipe = Recipe.find_by(name: params[:name])
     recipe.update(name: recipe.name, description: recipe.description, rating: recipe.rating)
     recipe = Recipe.find_by(name: params[:name])
-
-
-    # Ingredient.where(:recipe_id => recipe.id ).destroy_all
-    # ingredients.each do |i|
-    #   Ingredient.create(ingredient: i, recipe_id: recipe.id)
-    # end
-
-    # Direction.where(:recipe_id => recipe.id ).destroy_all
-    # directions.each do |d|
-    #   Direction.create(direction: d, recipe_id: recipe.id)
-    # end
+    
     redirect to "/users/#{get_user_name}/recipes/#{recipe.id}"
   end
 

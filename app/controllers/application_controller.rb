@@ -61,7 +61,6 @@ class ApplicationController < Sinatra::Base
           a2
         end
       end
-      # binding.pry
       collection.compact
     end
 

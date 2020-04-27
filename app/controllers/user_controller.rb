@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   
   get "/users/login" do 
-    erb :'/user/login'#, :layout => :layout
+    erb :'/user/login'
   end
 
   post "/users/login" do 
@@ -49,7 +49,6 @@ class UserController < ApplicationController
       # get a list of all the user's recipes
       @current_user = current_user
       @recipes = Recipe.where("user_id = #{@current_user.id}")
-      # raise @recipes.inspect
       erb :"/user/user_profile"
     else
       redirect "/"
